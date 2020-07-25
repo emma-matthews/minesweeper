@@ -3,19 +3,69 @@ document.addEventListener('DOMContentLoaded', startGame);
 // Define your `board` object here!
 var board = {
   cells: [
-    { row: 1, col: 1, isMine: false, hidden: true },
-    { row: 2, col: 1, isMine: true, hidden: true },
-    { row: 3, col: 1, isMine: true, hidden: true },
-    { row: 1, col: 2, isMine: false, hidden: true },
-    { row: 2, col: 2, isMine: true, hidden: true },
-    { row: 3, col: 2, isMine: true, hidden: true },
-    { row: 1, col: 3, isMine: false, hidden: true },
-    { row: 2, col: 3, isMine: true, hidden: true },
-    { row: 3, col: 3, isMine: false, hidden: true },
+    {
+      row: 1,
+      col: 1,
+      isMine: false,
+      hidden: true,
+    },
+    {
+      row: 2,
+      col: 1,
+      isMine: true,
+      hidden: true,
+    },
+    {
+      row: 3,
+      col: 1,
+      isMine: true,
+      hidden: true,
+    },
+    {
+      row: 1,
+      col: 2,
+      isMine: false,
+      hidden: true,
+    },
+    {
+      row: 2,
+      col: 2,
+      isMine: true,
+      hidden: true,
+    },
+    {
+      row: 3,
+      col: 2,
+      isMine: true,
+      hidden: true,
+    },
+    {
+      row: 1,
+      col: 3,
+      isMine: false,
+      hidden: true,
+    },
+    {
+      row: 2,
+      col: 3,
+      isMine: true,
+      hidden: true,
+    },
+    {
+      row: 3,
+      col: 3,
+      isMine: false,
+      hidden: true,
+    },
   ],
 };
 
 function startGame() {
+  for (i = 0; i < board.cells.length; i++) {
+    board.cells[i].surroundingMines = countSurroundingMines(board.cells[i]);
+  }
+  console.log(board);
+
   // Don't remove this function call: it makes the game work!
   lib.initBoard();
 }
@@ -38,4 +88,15 @@ function checkForWin() {
 //
 // It will return cell objects in an array. You should loop through
 // them, counting the number of times `cell.isMine` is true.
-function countSurroundingMines(cell) {}
+
+function countSurroundingMines(cell) {
+  var surrounding = lib.getSurroundingCells(cell.row, cell.col);
+  var count = 0;
+  for (var i = 0; i < surrounding.length; i++) {
+    if (surrounding[i].isMine === true) {
+      count++;
+    }
+  }
+
+  return count;
+}
